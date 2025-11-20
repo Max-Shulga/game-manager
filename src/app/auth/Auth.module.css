@@ -23,21 +23,12 @@
 		div{
 				display: flex;
 				flex-direction: column;
-				&:focus{
-
-						border-width: 2px;
-						border-color: #8a2be2;
-						transition: border 0.2s;
-				}
 		}
 		.field{
 				width: 100%;
-				&:focus{
-
-				border-width: 2px;
-				border-color: #8a2be2;
-				transition: border 0.2s;
-				}
+		}
+		.errorMessage{
+				color: red;
 		}
 }
 

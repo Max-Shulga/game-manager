@@ -1,7 +1,7 @@
-const SIGN_UP_FORM_FIELDS = {
+const AUTH_FIELDS = {
   EMAIL: 'email',
   PASSWORD: 'password',
   CONFIRM: 'confirm'
 } as const;
 
-export { SIGN_UP_FORM_FIELDS };
+export { AUTH_FIELDS };
