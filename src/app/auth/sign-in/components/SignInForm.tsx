@@ -32,7 +32,7 @@ const SignInForm = () => {
 
         {error && <Text className={styles.errorMessage}>{error}</Text>}
         <Button type='submit' fullWidth>
-          Sign Up
+          Sign In
         </Button>
         <GoogleButton />
       </form>
