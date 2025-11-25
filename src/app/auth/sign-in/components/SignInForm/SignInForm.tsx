@@ -3,11 +3,12 @@
 import { Box, Button, PasswordInput, TextInput, Text } from '@mantine/core';
 import GoogleButton from '@/app/auth/components/GoogleButton/GoogleButton';
 import { AUTH_FIELDS } from '@/app/auth/constants/auth.constants';
-import { useSignIn } from '@/app/auth/sign-in/hooks/useSignIn';
-import styles from '../../Auth.module.css';
+import { useSignIn } from '@/app/auth/sign-in/components/SignInForm/hooks/useSignIn';
+import { ROUTES } from '@/constants/routes';
+import styles from '../../../Auth.module.css';
 
 const SignInForm = () => {
-  const { error, handleSubmit, onSubmit, register, formState } = useSignIn();
+  const { error, handleSubmit, onSubmit, register, redirect, formState } = useSignIn();
   return (
     <Box className={styles.pageContainer}>
       <form
@@ -35,6 +36,13 @@ const SignInForm = () => {
           Sign In
         </Button>
         <GoogleButton />
+        <button
+          type='button'
+          className={styles.forgotPasswordButton}
+          onClick={() => redirect(ROUTES.RECOVERY)}
+        >
+          Forgot password?
+        </button>
       </form>
     </Box>
   );

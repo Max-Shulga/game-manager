@@ -31,7 +31,7 @@ const useSignIn = () => {
     await handleSignIn(data);
   };
 
-  return { error, register, handleSubmit, formState, onSubmit } as const;
+  return { error, register, handleSubmit, formState, onSubmit, redirect } as const;
 };
 
 export { useSignIn };
