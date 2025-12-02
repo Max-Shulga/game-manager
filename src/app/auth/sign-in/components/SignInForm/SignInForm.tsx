@@ -39,7 +39,7 @@ const SignInForm = () => {
         <button
           type='button'
           className={styles.forgotPasswordButton}
-          onClick={() => redirect(ROUTES.RECOVERY)}
+          onClick={() => redirect(ROUTES.GUEST.FORGOT_PASSWORD)}
         >
           Forgot password?
         </button>

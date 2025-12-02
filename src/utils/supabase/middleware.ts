@@ -1,6 +1,5 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
-import { ACCESS_RULES } from '@/constants/access';
 import { ROUTES } from '@/constants/routes';
 import { matchesRoute } from '@/utils/matchesRoute';
 import type { NextRequest } from 'next/server';
@@ -34,8 +33,8 @@ export async function updateSession(request: NextRequest) {
 
   const { data } = await supabase.auth.getClaims();
   const pathName = request.nextUrl.pathname;
-  const isGuestOnly = matchesRoute(pathName, ACCESS_RULES.guestOnly);
-  const isAuthOnly = matchesRoute(pathName, ACCESS_RULES.authOnly);
+  const isGuestOnly = matchesRoute(pathName, Object.values(ROUTES.GUEST));
+  const isAuthOnly = matchesRoute(pathName, Object.values(ROUTES.AUTHENTICATED));
   const user = data?.claims;
   const isOAuthCallback = request.nextUrl.searchParams.has('code');
 
@@ -43,11 +42,11 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.next();
   }
   if (user && isGuestOnly) {
-    return NextResponse.redirect(new URL(ROUTES.HOME, request.url));
+    return NextResponse.redirect(new URL(ROUTES.AUTHENTICATED.HOME, request.url));
   }
 
   if (!user && isAuthOnly) {
-    return NextResponse.redirect(new URL(ROUTES.SIGN_IN, request.url));
+    return NextResponse.redirect(new URL(ROUTES.GUEST.SIGN_IN, request.url));
   }
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
   // creating a new response object with NextResponse.next() make sure to:
