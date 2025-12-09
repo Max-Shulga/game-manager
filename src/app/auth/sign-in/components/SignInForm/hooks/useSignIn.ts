@@ -23,7 +23,7 @@ const useSignIn = () => {
       setError(error.message);
       return false;
     }
-    redirect(ROUTES.HOME);
+    redirect(ROUTES.AUTHENTICATED.HOME);
     return true;
   };
 

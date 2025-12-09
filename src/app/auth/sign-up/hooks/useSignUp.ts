@@ -30,7 +30,7 @@ const useSignUp = () => {
       setError(error.message);
       return false;
     }
-    redirect(ROUTES.HOME);
+    redirect(ROUTES.AUTHENTICATED.HOME);
     return true;
   };
 
@@ -38,7 +38,7 @@ const useSignUp = () => {
     if (data.password !== data.confirm) {
       formSetError(AUTH_FIELDS.CONFIRM, {
         type: 'custom',
-        message: 'Passwords do not match'
+        message: "Passwords don't match"
       });
       return;
     }

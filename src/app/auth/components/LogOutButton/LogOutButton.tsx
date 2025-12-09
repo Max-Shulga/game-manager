@@ -7,7 +7,7 @@ const LogOutButton = () => {
   const supabase = createClient();
   const logout = async () => {
     await supabase.auth.signOut();
-    redirect(ROUTES.SIGN_IN);
+    redirect(ROUTES.GUEST.SIGN_IN);
   };
   return <button onClick={() => void logout()}>log out</button>;
 };

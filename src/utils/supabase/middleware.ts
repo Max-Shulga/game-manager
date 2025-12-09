@@ -33,11 +33,23 @@ export async function updateSession(request: NextRequest) {
 
   const { data } = await supabase.auth.getClaims();
   const pathName = request.nextUrl.pathname;
+  // --- IGNORE INTERNAL/SYSTEM REQUESTS ---
+  if (
+    pathName.startsWith('/_next') ||
+    pathName.startsWith('/favicon') ||
+    pathName.startsWith('/.well-known')
+  ) {
+    return NextResponse.next();
+  }
+  const isRecovery = pathName.startsWith(ROUTES.GUEST.RESET_PASSWORD);
+
+  if (isRecovery) {
+    return supabaseResponse;
+  }
   const isGuestOnly = matchesRoute(pathName, Object.values(ROUTES.GUEST));
   const isAuthOnly = matchesRoute(pathName, Object.values(ROUTES.AUTHENTICATED));
   const user = data?.claims;
   const isOAuthCallback = request.nextUrl.searchParams.has('code');
-
   if (isOAuthCallback) {
     return NextResponse.next();
   }
@@ -48,6 +60,7 @@ export async function updateSession(request: NextRequest) {
   if (!user && isAuthOnly) {
     return NextResponse.redirect(new URL(ROUTES.GUEST.SIGN_IN, request.url));
   }
+
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
   // creating a new response object with NextResponse.next() make sure to:
   // 1. Pass the request in it, like so:
